@@ -1,17 +1,13 @@
 export const signup = async (req, res) => {
   res.json({
-    data: "you hit the signup method",
+    data: "You hit the signup endpoint",
   });
 };
-
-export const signIn = async (req, res) => {
+export const login = async (req, res) => {
   res.json({
-    data: "you hit the login method",
+    data: "You hit the login endpoint",
   });
 };
-
-export const signUp = async (req, res) => {
-  res.json({
-    data: "you hit the logout method",
-  });
+export const logout = async (req, res) => {
+  res.send("you hit the logout page");
 };
