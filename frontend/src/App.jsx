@@ -4,7 +4,10 @@ import LoginPage from "./pages/auth/login/LoginPage";
 import HomePage from "./pages/home/HomePage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import NotificationPage from "./pages/notification/NotificationPage";
+
 import Sidebar from "./components/common/Sidebar";
+import RightPanel from "./components/common/RightPanel";
+
 import "./App.css";
 
 function App() {
@@ -18,6 +21,7 @@ function App() {
         <Route path="/notifications" element={<NotificationPage />} />
         <Route path="/profile/:username" element={<ProfilePage />} />
       </Routes>
+      <RightPanel />
     </div>
   );
 }
