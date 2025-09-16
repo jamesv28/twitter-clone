@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import XSvg from "../../../components/svgs/X";
 import toast from "react-hot-toast";
 
@@ -8,6 +8,7 @@ import { MdOutlineMail } from "react-icons/md";
 import { MdPassword } from "react-icons/md";
 
 const LoginPage = () => {
+  const queryClient = useQueryClient();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -40,7 +41,11 @@ const LoginPage = () => {
     },
     onSuccess: () => {
       // refetch the authUser
-      toast.success("Login successful");
+      // toast.success("Login successful");
+      queryClient.invalidateQueries({ queryKey: ["authUser"] });
+    },
+    onError: () => {
+      toast.error("There was an error");
     },
   });
   const handleSubmit = (e) => {
