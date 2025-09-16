@@ -179,12 +179,13 @@ export const getLikedPosts = async (req, res) => {
 
 export const getFollowingPosts = async (req, res) => {
   try {
-    const userId = req.params.id;
-    const user = User.findById(userId);
-    if (!user) return res.status(404).json({ error: "User Not Found" });
+    const userId = req.user._id;
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ error: "User not found" });
 
     const following = user.following;
-    const feedPost = await Post.find({ user: { $in: following } })
+
+    const feedPosts = await Post.find({ user: { $in: following } })
       .sort({ createdAt: -1 })
       .populate({
         path: "user",
@@ -194,10 +195,11 @@ export const getFollowingPosts = async (req, res) => {
         path: "comments.user",
         select: "-password",
       });
-    res.status(200).json(following);
+
+    res.status(200).json(feedPosts);
   } catch (error) {
-    console.log(`Error occurred: ${error.message}`);
-    res.status(500).json({ error: `Internal Server Error: ${error.message}` });
+    console.log("Error in getFollowingPosts controller: ", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
 
