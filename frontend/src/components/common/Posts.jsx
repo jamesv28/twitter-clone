@@ -45,7 +45,6 @@ const Posts = ({ feedType, username, userId }) => {
     },
   });
 
-  console.log("Posts to show", posts);
   useEffect(() => {
     refetch();
   }, [feedType, refetch, username]);
